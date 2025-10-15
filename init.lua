@@ -25,7 +25,7 @@ vim.o.mouse = 'a'
 vim.o.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
+--  Schedul
 --  Remove this option if you want your OS clipboard to remain independent.
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
@@ -72,6 +72,9 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -97,7 +100,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set('n', '<C-n>', '<C-w><C-H>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-i>', '<C-w><C-L>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-e>', '<C-w><C-J>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-u>', '<C-w><C-K>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
@@ -136,8 +138,6 @@ rtp:prepend(lazypath)
 
 -- NOTE: Plugin installation.
 require('lazy').setup({
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
