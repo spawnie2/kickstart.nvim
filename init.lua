@@ -149,6 +149,11 @@ require('lazy').setup({
     'lambdalisue/suda.vim',
   },
 
+  {
+    -- Display markdown files
+    'MeanderingProgrammer/render-markdown.nvim',
+  },
+
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
