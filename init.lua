@@ -150,6 +150,14 @@ require('lazy').setup({
   },
 
   {
+    -- Show what the closing block corresponds to
+    'code-biscuits/nvim-biscuits',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+  },
+
+  {
     -- Display markdown files
     'MeanderingProgrammer/render-markdown.nvim',
   },
