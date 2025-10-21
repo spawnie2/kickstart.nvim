@@ -369,6 +369,33 @@ require('lazy').setup({
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
     opts = {
+      broad_search = true,
+      config = {
+        settings = {
+          ['csharp|background_analysis'] = {
+            dotnet_analyzer_diagnostics_scope = 'openFiles',
+            dotnet_compiler_diagnostics_scope = 'openFiles',
+          },
+          ['csharp|completion'] = {
+            dotnet_provide_regex_completions = false,
+            dotnet_show_completion_items_from_unimported_namespaces = true,
+          },
+          ['csharp|inlay_hints'] = {
+            csharp_enable_inlay_hints_for_implicit_object_creation = false,
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+            csharp_enable_inlay_hints_for_lambda_parameter_types = false,
+            csharp_enable_inlay_hints_for_types = false,
+            dotnet_enable_inlay_hints_for_indexer_parameters = false,
+            dotnet_enable_inlay_hints_for_literal_parameters = true,
+            dotnet_enable_inlay_hints_for_object_creation_parameters = false,
+            dotnet_enable_inlay_hints_for_other_parameters = false,
+            dotnet_enable_inlay_hints_for_parameters = false,
+            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = false,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = false,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = false,
+          },
+        },
+      },
       -- your configuration comes here; leave empty for default settings
     },
   },
@@ -802,7 +829,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go', 'hlsl' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go', 'hlsl', 'c_sharp' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
