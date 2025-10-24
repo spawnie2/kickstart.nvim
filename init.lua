@@ -70,6 +70,14 @@ vim.o.confirm = true
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
+vim.filetype.add {
+  extension = {
+    hlsl = 'hlsl',
+    compute = 'hlsl',
+    cginc = 'hlsl',
+  },
+}
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -115,6 +123,14 @@ vim.api.nvim_create_autocmd('ExitPre', {
   command = 'set guicursor=a:ver90',
 })
 
+-- Start tree sitter on entering hlsl file
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'hlsl' },
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -131,6 +147,7 @@ local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
 -- [[ Plugins ]]
+
 require('lazy').setup({
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -233,7 +250,14 @@ require('lazy').setup({
       -- [[ Configure Telescope ]]
       -- `:help telescope`
       require('telescope').setup {
-
+        defaults = {
+          vimgrep_arguments = vimgrep_arguments,
+        },
+        pickers = {
+          find_files = {
+            find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '-L' },
+          },
+        },
         --  `:help telescope.setup()`
         extensions = {
           ['ui-select'] = {
@@ -300,6 +324,14 @@ require('lazy').setup({
     ---@type RoslynNvimConfig
     opts = {
       broad_search = true,
+      choose_target = function(target)
+        return vim.iter(target):find(function(item)
+          print(item)
+          if string.match(item, '*Amplitude.Mercury.Unityproject.sln') then
+            return item
+          end
+        end)
+      end,
       config = {
         settings = {
           ['csharp|background_analysis'] = {
@@ -546,7 +578,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, cs = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -784,5 +816,30 @@ require('lazy').setup({
   },
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
+-- install hlsl_tools manually
+vim.lsp.config.hlsl_tools = {
+  cmd = { 'c:/Users/jbarthel/.vscode/extensions/timgjones.hlsltools-1.1.303/bin/win-x64/ShaderTools.LanguageServer.exe' },
+  root_dir = function(bufnr, on_dir)
+    on_dir 'E:/cinnabar/Development/Unity Projects/Amplitude.Mercury.Unityproject/'
+  end,
+  filetypes = { 'hlsl' },
+}
+
+-- Telescope config
+local telescope = require 'telescope'
+local telescopeConfig = require 'telescope.config'
+
+-- Clone the default Telescope configuration
+local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+-- I want to search in hidden/dot files.
+table.insert(vimgrep_arguments, '--hidden')
+-- I don't want to search in the `.git` directory.
+table.insert(vimgrep_arguments, '--glob')
+table.insert(vimgrep_arguments, '!**/.git/*')
+
+table.insert(vimgrep_arguments, '-L')
+
+-- vim.lsp.enable 'hlsl_tools'
+
 -- vim: ts=2 sts=2 sw=2 et
