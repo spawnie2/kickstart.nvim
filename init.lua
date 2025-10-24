@@ -252,10 +252,11 @@ require('lazy').setup({
       require('telescope').setup {
         defaults = {
           vimgrep_arguments = vimgrep_arguments,
+          path_display = { 'filename_first' },
         },
         pickers = {
           find_files = {
-            find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '-L' },
+            find_command = { 'rg', '--files', '--hidden', '-L' },
           },
         },
         --  `:help telescope.setup()`
