@@ -158,6 +158,17 @@ require('lazy').setup({
   },
 
   {
+    -- autosync unity files
+    'apyra/nvim-unity-sync',
+    config = function()
+      require('unity.plugin').setup {
+        -- Configs here (Optional)
+      }
+    end,
+    ft = 'cs',
+  },
+
+  {
     -- Display markdown files
     'MeanderingProgrammer/render-markdown.nvim',
   },
