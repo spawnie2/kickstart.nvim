@@ -94,6 +94,8 @@ vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
 vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
+vim.keymap.set('n', '<C-j>', '<C-p>', { desc = 'Move up' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -145,16 +147,22 @@ require('lazy').setup({
     },
   },
 
-  { -- Save files as sudo
-    'lambdalisue/suda.vim',
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'leoluz/nvim-dap-go',
+      'rcarriga/nvim-dap-ui',
+      'nvim-neotest/nvim-nio',
+      'theHamsta/nvim-dap-virtual-text',
+    },
+    config = function()
+      local dap = require 'dap'
+      local ui = require 'dapui'
+    end,
   },
 
-  {
-    -- Show what the closing block corresponds to
-    'code-biscuits/nvim-biscuits',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
+  { -- Save files as sudo
+    'lambdalisue/suda.vim',
   },
 
   {
@@ -640,6 +648,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
+        ['<C-m>'] = { 'show' },
         preset = 'default',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
