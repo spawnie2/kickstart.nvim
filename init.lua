@@ -89,7 +89,6 @@ vim.keymap.set('n', '<C-i>', '<C-w><C-L>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-e>', '<C-w><C-J>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-u>', '<C-w><C-K>', { desc = 'Move focus to the upper window' })
 
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
 vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
