@@ -87,6 +87,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set('n', '<C-n>', '<C-w><C-H>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-i>', '<C-w><C-L>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-e>', '<C-w><C-J>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-u>', '<C-w><C-K>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
@@ -94,7 +95,9 @@ vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
 vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
+-- Convenience remaps
 vim.keymap.set('n', '<C-j>', '<C-p>', { desc = 'Move up' })
+vim.keymap.set('n', '<C-h>', ':e #<cr>', { desc = 'Move to alternate' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
