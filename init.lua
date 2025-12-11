@@ -20,7 +20,7 @@ end)
 vim.o.tabstop = 4
 vim.o.softtabstop = 0
 vim.o.shiftwidth = 4
-vim.o.wrap = false
+vim.o.wrap = true
 vim.o.swapfile = false
 vim.o.breakindent = true
 vim.o.undofile = true
@@ -317,17 +317,20 @@ require('lazy').setup({
       broad_search = true,
       choose_target = function(target)
         return vim.iter(target):find(function(item)
-          print(item)
-          if string.match(item, '*Amplitude.Mercury.Unityproject.sln') then
+          if string.match(item, 'E:/cinnabar/Development/Unity Projects/Amplitude.Mercury.Unityproject/Amplitude.Mercury.Unityproject.sln') then
             return item
           end
         end)
       end,
       config = {
         settings = {
+          format_on_save = false,
           ['csharp|background_analysis'] = {
             dotnet_analyzer_diagnostics_scope = 'openFiles',
             dotnet_compiler_diagnostics_scope = 'openFiles',
+          },
+          ['csharp|formatting'] = {
+            format_on_save = false,
           },
           ['csharp|completion'] = {
             dotnet_provide_regex_completions = false,
@@ -491,9 +494,6 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true, cs = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
@@ -580,7 +580,18 @@ require('lazy').setup({
         },
       }
 
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
+    end,
+  },
+  {
+    'rose-pine/neovim',
+    priority = 1000,
+    name = 'rose-pine',
+    config = function()
+      require('rose-pine').setup {
+        variant = 'dawn',
+      }
+      vim.cmd 'colorscheme rose-pine'
     end,
   },
 
