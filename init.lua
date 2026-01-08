@@ -575,6 +575,7 @@ require('lazy').setup({
     opts = {
       keymap = {
         ['<C-;>'] = { 'show' },
+        ['<CR>'] = { 'select_and_accept', 'fallback' },
         preset = 'default',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
