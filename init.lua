@@ -27,6 +27,9 @@ vim.o.undofile = true
 
 vim.o.winborder = 'rounded'
 
+-- Enable true colors
+vim.o.termguicolors = true
+
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -154,6 +157,17 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+  {
+    'uga-rosa/ccc.nvim',
+    config = function()
+      require('ccc').setup {
+        highlighter = {
+          auto_enable = true,
+        },
+        lsp = true,
+      }
+    end,
   },
 
   {
@@ -451,6 +465,23 @@ require('lazy').setup({
             },
           },
         },
+        pylsp = {
+          plugins = {
+            black = { enabled = true },
+            autopep8 = { enabled = false },
+            yapf = { enabled = false },
+            -- linter options
+            pylint = { enabled = true, executable = 'pylint' },
+            pyflakes = { enabled = false },
+            pycodestyle = { enabled = false },
+            -- type checker
+            pylsp_mypy = { enabled = true },
+            -- auto-completion options
+            jedi_completion = { fuzzy = true },
+            -- import sorting
+            pyls_isort = { enabled = true },
+          },
+        },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -543,7 +574,7 @@ require('lazy').setup({
     --- @type blink.cmp.Config
     opts = {
       keymap = {
-        ['<C-,>'] = { 'show' },
+        ['<C-;>'] = { 'show' },
         preset = 'default',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
