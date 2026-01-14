@@ -467,23 +467,6 @@ require('lazy').setup({
             },
           },
         },
-        pylsp = {
-          plugins = {
-            black = { enabled = true },
-            autopep8 = { enabled = false },
-            yapf = { enabled = false },
-            -- linter options
-            pylint = { enabled = true, executable = 'pylint' },
-            pyflakes = { enabled = false },
-            pycodestyle = { enabled = false },
-            -- type checker
-            pylsp_mypy = { enabled = true },
-            -- auto-completion options
-            jedi_completion = { fuzzy = true },
-            -- import sorting
-            pyls_isort = { enabled = true },
-          },
-        },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -721,14 +704,26 @@ require('lazy').setup({
 -- install hlsl_tools manually
 vim.lsp.config.hlsl_tools = {
   cmd = { 'c:/Users/jbarthel/.vscode/extensions/timgjones.hlsltools-1.1.303/bin/win-x64/ShaderTools.LanguageServer.exe' },
-  root_dir = function(bufnr, on_dir)
+  root_dir = function(_, on_dir)
     on_dir 'E:/cinnabar/Development/Unity Projects/Amplitude.Mercury.Unityproject/'
   end,
   filetypes = { 'hlsl' },
 }
 
+-- convince pylsp to not spam me with error 501 (https://stackoverflow.com/questions/71581022/how-to-disable-linter-in-pylsp)
+vim.lsp.config.pylsp = {
+  settings = {
+    pylsp = {
+      plugins = {
+        pyflakes = { enabled = false },
+        pylint = { enabled = false },
+        pycodestyle = { enabled = false },
+      },
+    },
+  },
+}
+
 -- Telescope config
-local telescope = require 'telescope'
 local telescopeConfig = require 'telescope.config'
 
 -- Clone the default Telescope configuration
