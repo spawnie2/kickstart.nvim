@@ -90,6 +90,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Set Esc Esc as a keybind for exiting terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Convenience remaps
+vim.keymap.set('n', '<C-j>', '<C-p>', { desc = 'Move up one line' })
+vim.keymap.set('n', '<C-h>', ':e #<cr>', { desc = 'Move to alternate' })
+vim.keymap.set('n', '<C-s>', '<C-d>', { desc = 'Move Downwards' })
+vim.keymap.set('n', '<C-f>', '<C-u>', { desc = 'Move Upwards' })
+
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-n>', '<C-w><C-H>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-i>', '<C-w><C-L>', { desc = 'Move focus to the right window' })
@@ -100,10 +106,6 @@ vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
 vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
 vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
-
--- Convenience remaps
-vim.keymap.set('n', '<C-j>', '<C-p>', { desc = 'Move up' })
-vim.keymap.set('n', '<C-h>', ':e #<cr>', { desc = 'Move to alternate' })
 
 -- [[ Basic Autocommands ]]
 
@@ -525,7 +527,7 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        local disable_filetypes = { c = true, cpp = true, cs = true }
+        local disable_filetypes = { c = true, cpp = true, cs = true, python = true, hlsl = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -538,6 +540,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         go = { 'gofmt' },
+        pythin = { 'pylint' },
       },
     },
   },
